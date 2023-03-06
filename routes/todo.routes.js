@@ -13,7 +13,6 @@ router.get("/", async (req, res, next) => {
   }
 })
 
-
 // POST "/api/todo" => crear un nuevo Todo (recibe titulo, descripción y isUrgent)
 router.post("/", async (req, res, next) => {
 
@@ -37,7 +36,6 @@ router.post("/", async (req, res, next) => {
   }
 
 })
-
 
 // GET "/api/todo/:todoId" => enviar los detalles de un Todo por su id
 router.get("/:todoId", async (req, res, next) => {
@@ -64,6 +62,28 @@ router.delete("/:todoId", async (req, res, next) => {
     
     await Todo.findByIdAndDelete(todoId)
     res.json("todo bien, documento borrado")
+
+  } catch (error) {
+    next(error)
+  }
+
+})
+
+// PATCH "/api/todo/:todoId" => recibir la info de actualización y actualizará un Todo por su id
+router.patch("/:todoId", async (req, res, next) => {
+
+  const { todoId } = req.params;
+  const { title, description, isUrgent } = req.body;
+
+  try {
+    
+    await Todo.findByIdAndUpdate(todoId, {
+      title,
+      description,
+      isUrgent
+    })
+
+    res.json("todo bien, documento actualizado")
 
   } catch (error) {
     next(error)
