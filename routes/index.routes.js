@@ -7,5 +7,8 @@ router.get("/", (req, res, next) => {
 const todoRoutes = require("./todo.routes.js")
 router.use("/todo", todoRoutes)
 
+const authRoutes = require("./auth.routes.js")
+router.use("/auth", authRoutes)
+
 
 module.exports = router;

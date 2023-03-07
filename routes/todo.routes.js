@@ -29,7 +29,7 @@ router.post("/", async (req, res, next) => {
     })
 
     // res.json(response)
-    res.json("todo bien, todo creado")
+    res.status(200).json()
 
   } catch (error) {
     next(error)
