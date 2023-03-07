@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const isAuthenticated = require("../middlewares/auth.middlewares");
 const Todo = require("../models/Todo.model")
 
 // en este archivo haremos todas las rutas de CRUD de todos
@@ -14,7 +15,7 @@ router.get("/", async (req, res, next) => {
 })
 
 // POST "/api/todo" => crear un nuevo Todo (recibe titulo, descripción y isUrgent)
-router.post("/", async (req, res, next) => {
+router.post("/", isAuthenticated, async (req, res, next) => {
 
   // console.log(req.body)
 
@@ -25,7 +26,9 @@ router.post("/", async (req, res, next) => {
     const response = await Todo.create({
       title: title,
       description: description,
-      isUrgent: isUrgent
+      isUrgent: isUrgent,
+      // ejemplo para crear todos de un usuario usando el payload
+      owner: req.payload._id
     })
 
     // res.json(response)
