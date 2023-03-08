@@ -5,7 +5,7 @@ const Todo = require("../models/Todo.model")
 // en este archivo haremos todas las rutas de CRUD de todos
 
 // GET "/api/todo" => enviar la lista de Todo, solo los titulos
-router.get("/", async (req, res, next) => {
+router.get("/", isAuthenticated, async (req, res, next) => {
   try {
     const response = await Todo.find().select("title")
     res.json(response)
